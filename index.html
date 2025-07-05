@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <title>لیست گان‌های کالاف دیوتی موبایل</title>
+  <style>
+    body {
+      font-family: 'Varela Round', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #eee;
+      direction: rtl;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      color: #00ffe1;
+      margin-bottom: 30px;
+    }
+    #controls {
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    input, select {
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: none;
+      font-size: 16px;
+      background: #122839;
+      color: #00ffe1;
+      box-shadow: 0 0 8px #00ffe1aa;
+      transition: 0.3s ease;
+      min-width: 220px;
+      flex-grow: 1;
+    }
+    input::placeholder {
+      color: #00ffe1bb;
+      font-weight: 600;
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 15px #00ffe1ff;
+      background: #0d1e2c;
+    }
+    .weapon-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 25px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .weapon {
+      background: #1c2a40;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #00ffe1aa;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .weapon:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00ffe1ff;
+      z-index: 5;
+    }
+    .weapon img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 3px solid #00ffe1;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+      transition: transform 0.3s ease;
+    }
+    .weapon:hover img {
+      transform: scale(1.1);
+    }
+    .weapon a {
+      display: block;
+      padding: 18px;
+      font-size: 1.3rem;
+      color: #00ffe1;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      user-select: none;
+      text-shadow: 0 0 5px #00ffe1cc;
+      position: relative;
+    }
+    .weapon a::before {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      box-shadow: 0 0 6px #00000099;
+      content: attr(data-category-name);
+    }
+    /* دسته بندی رنگی */
+    .weapon[data-category="ar"] a::before { background: #00b894; }
+    .weapon[data-category="smg"] a::before { background: #fd79a8; }
+    .weapon[data-category="sniper"] a::before { background: #0984e3; }
+    .weapon[data-category="lmg"] a::before { background: #6c5ce7; }
+    .weapon[data-category="shotgun"] a::before { background: #e17055; }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <h1>لیست گان‌های کالاف دیوتی موبایل</h1>
+
+  <div id="controls">
+    <input type="text" id="search" placeholder="جستجوی گان ..." />
+    <select id="categoryFilter">
+      <option value="all">همه دسته‌ها</option>
+      <option value="ar">تفنگ هجومی (AR)</option>
+      <option value="smg">سلاح سبک (SMG)</option>
+      <option value="sniper">اسنایپر</option>
+      <option value="lmg">تیربار سبک (LMG)</option>
+      <option value="shotgun">شاتگان</option>
+    </select>
+  </div>
+
+  <div class="weapon-list" id="weaponList">
+
+    <!-- مثال چندتا گان با لینک به صفحه جدا -->
+    <div class="weapon" data-keywords="ak47 ak-47 ای کی ای کی47" data-category="ar">
+      <a href="weapons/ak47.html" data-category-name="تفنگ هجومی">
+        <img src="https://cdn.gamerjournalist.com/primary/2023/11/AK-47-CoD-Mobile.jpg" alt="AK-47" />
+        AK-47
+      </a>
+    </div>
+
+    <div class="weapon" data-keywords="fennec فنک فنکک فننک" data-category="smg">
+      <a href="weapons/fennec.html" data-category-name="سلاح سبک">
+        <img src="https://cdn.gamerjournalist.com/primary/2023/09/fennec-cod-mobile.jpg" alt="Fennec" />
+        Fennec
+      </a>
+    </div>
+
+    <div class="weapon" data-keywords="m13 ام سیزده ام 13 m-13" data-category="ar">
+	<a href="weapons/m13.html" data-category-name="تفنگ هجومی">
+        <img src="https://cdn.gamerjournalist.com/primary/2023/10/M13-CoD-Mobile.jpg" alt="M13" />
+        M13
+      </a>
+    </div>
+
+    <div class="weapon" data-keywords="intervention اینترونشن اینترونشن" data-category="sniper">
+      <a href="weapons/intervention.html" data-category-name="اسنایپر">
+        <img src="https://cdn.gamerjournalist.com/primary/2023/11/intervention-cod-mobile.jpg" alt="Intervention" />
+        Intervention
+      </a>
+    </div>
+
+    <!-- اینجا میتونی همه گان‌های دیگه رو اضافه کنی -->
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('search');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const weapons = document.querySelectorAll('.weapon');
+
+    function filterWeapons() {
+      const keyword = searchInput.value.trim().toLowerCase();
+      const category = categoryFilter.value;
+
+      weapons.forEach(weapon => {
+        const keywords = weapon.getAttribute('data-keywords').toLowerCase();
+        const weaponCategory = weapon.getAttribute('data-category');
+
+        const matchesSearch = keywords.includes(keyword);
+        const matchesCategory = category === 'all' || weaponCategory === category;
+
+        if (matchesSearch && matchesCategory) {
+          weapon.classList.remove('hidden');
+        } else {
+          weapon.classList.add('hidden');
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', filterWeapons);
+    categoryFilter.addEventListener('change', filterWeapons);
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <title>AK-47 - اتچمنت‌ها</title>
+  <style>
+    body {
+      font-family: 'Varela Round', sans-serif;
+      background: #141e30;
+      color: #eee;
+      direction: rtl;
+      padding: 20px;
+      max-width: 720px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      color: #00ffe1;
+      margin-bottom: 20px;
+    }
+    .attachments {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .attachment {
+      width: 150px;
+      background: #1c2a40;
+      border-radius: 15px;
+      box-shadow: 0 0 12px #00ffe1aa;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .attachment:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 22px #00ffe1ff;
+    }
+    .attachment img {
+      width: 100%;
+      height: 100px;
+      object-fit: contain;
+      background: #0d1e2c;
+      padding: 10px;
+    }
+    .attachment-name {
+      padding: 10px;
+      font-weight: 700;
+      color: #00ffe1;
+      user-select: none;
+    }
+    /* دکمه بازگشت */
+    a.back {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #00ffe1;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: 2px solid #00ffe1;
+      padding: 8px 16px;
+      border-radius: 25px;
+      transition: background 0.3s ease;
+    }
+    a.back:hover {
+	<div id="likeDislike">
+  <button id="likeBtn">👍 0</button>
+  <button id="dislikeBtn">👎 0</button>
+</div>
+
+<div id="commentsSection">
+  <h3>نظرات</h3>
+  <form id="commentForm">
+    <input type="text" id="commentInput" placeholder="نظر خود را بنویسید..." required style="width: 70%; padding: 8px; border-radius: 8px; border: 1px solid #ccc;">
+    <button type="submit" style="padding: 8px 12px; border-radius: 8px; background:#00ffe1; color: #000; border:none; cursor:pointer;">ارسال</button>
+  </form>
+  <ul id="commentsList" style="list-style: none; padding: 0; margin-top: 15px; max-height: 200px; overflow-y: auto;"></ul>
+</div>
+
+<script>
+  const likeBtn = document.getElementById('likeBtn');
+  const dislikeBtn = document.getElementById('dislikeBtn');
+  const commentForm = document.getElementById('commentForm');
+  const commentInput = document.getElementById('commentInput');
+  const commentsList = document.getElementById('commentsList');
+
+  // شناسه صفحه (مثلاً نام گان) - برای ذخیره جداگانه
+  const pageId = window.location.pathname;
+
+  // بارگذاری آمار از localStorage
+  let likes = parseInt(localStorage.getItem(pageId + '_likes')) || 0;
+  let dislikes = parseInt(localStorage.getItem(pageId + '_dislikes')) || 0;
+  let comments = JSON.parse(localStorage.getItem(pageId + '_comments')) || [];
+
+  // نمایش اولیه
+  likeBtn.textContent = `👍 ${likes}`;
+  dislikeBtn.textContent = `👎 ${dislikes}`;
+
+  function renderComments() {
+    commentsList.innerHTML = '';
+    comments.forEach((c, i) => {
+      const li = document.createElement('li');
+      li.textContent = c;
+      li.style.padding = '6px 8px';
+      li.style.borderBottom = '1px solid #333';
+      commentsList.appendChild(li);
+    });
+  }
+  renderComments();
+
+  // مدیریت کلیک لایک
+  likeBtn.addEventListener('click', () => {
+    likes++;
+    localStorage.setItem(pageId + '_likes', likes);
+    likeBtn.textContent = `👍 ${likes}`;
+  });
+
+  // مدیریت کلیک دیسلایک
+  dislikeBtn.addEventListener('click', () => {
+    dislikes++;
+    localStorage.setItem(pageId + '_dislikes', dislikes);
+    dislikeBtn.textContent = `👎 ${dislikes}`;
+  });
+
+  // ارسال نظر جدید
+  commentForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const newComment = commentInput.value.trim();
+    if(newComment.length > 0){
+      comments.push(newComment);
+      localStorage.setItem(pageId + '_comments', JSON.stringify(comments));
+      renderComments();
+      commentInput.value = '';
+    }
+  });
+</script>
+<div id="likeDislike">
+  <button id="likeBtn">👍 0</button>
+  <button id="dislikeBtn">👎 0</button>
+</div>
+
+<script>
+  const likeBtn = document.getElementById('likeBtn');
+  const dislikeBtn = document.getElementById('dislikeBtn');
+
+  const pageId = window.location.pathname;
+
+  let likes = parseInt(localStorage.getItem(pageId + '_likes')) || 0;
+  let dislikes = parseInt(localStorage.getItem(pageId + '_dislikes')) || 0;
+
+  // ذخیره وضعیت کاربر (0=نه لایک نه دیس، 1=لایک، -1=دیسلایک)
+  let userVote = parseInt(localStorage.getItem(pageId + '_userVote')) || 0;
+
+  function updateButtons(){
+    likeBtn.textContent = `👍 ${likes}`;
+    dislikeBtn.textContent = `👎 ${dislikes}`;
+
+    likeBtn.style.opacity = userVote === 1 ? '1' : '0.6';
+    dislikeBtn.style.opacity = userVote === -1 ? '1' : '0.6';
+  }
+  updateButtons();
+
+  likeBtn.addEventListener('click', () => {
+    if(userVote === 1){
+      // آن‌لایک
+      likes--;
+      userVote = 0;
+    } else {
+      if(userVote === -1) dislikes--;
+      likes++;
+      userVote = 1;
+    }
+    localStorage.setItem(pageId + '_likes', likes);
+    localStorage.setItem(pageId + '_dislikes', dislikes);
+    localStorage.setItem(pageId + '_userVote', userVote);
+    updateButtons();
+  });
+
+  dislikeBtn.addEventListener('click', () => {
+    if(userVote === -1){
+      // آن‌دیس‌لایک
+      dislikes--;
+      userVote = 0;
+    } else {
+      if(userVote === 1) likes--;
+      dislikes++;
+      userVote = -1;
+    }
+    localStorage.setItem(pageId + '_likes', likes);
+    localStorage.setItem(pageId + '_dislikes', dislikes);
+    localStorage.setItem(pageId + '_userVote', userVote);
+    updateButtons();
+  });
+</script>
+ons: {❤️:0,😂:0,🔥:0}
+            });
+            saveComments();
+            renderComments();
+          }
+        });
+      });
+
+      return li;
+    }
+
+    // رندر کامنت‌ها بصورت درختی
+    function renderTree(parentId = null, level=0){
+      comments.filter(c => c.parentId === parentId).forEach(c => {
+        const el = createCommentElement(c, level);
+        commentsList.appendChild(el);
+        renderTree(c.id, level + 1);
+      });
+    }
+    renderTree();
+  }
+
+  renderComments();
+
+  commentForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const val = commentInput.value.trim();
+    if(val){
+      comments.push({ id: Date.now(), text: val, parentId: null, reactions: {❤️:0,😂:0,🔥:0} });
+      saveComments();
+      renderComments();
+      commentInput.value = '';
+    }
+  });
+</script>
+<style>
+  .like-effect {
+    animation: pop 0.4s ease;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); color: red; }
+    100% { transform: scale(1); }
+  }
+</style>
+
+<script>
+  function animatePop(el) {
+    el.classList.add('like-effect');
+    setTimeout(() => el.classList.remove('like-effect'), 400);
+  }
+
+  likeBtn.addEventListener('click', () => {
+    // ... همون کد لایک قبلیت
+    animatePop(likeBtn);
+  });
+
+  dislikeBtn.addEventListener('click', () => {
+    // ... همون کد دیسلایک قبلیت
+    animatePop(dislikeBtn);
+  });
+</script>
+<div id="adminLogin" style="text-align:center; margin-top:50px;">
+  <h2>ورود مدیر</h2>
+  <input type="password" id="adminPass" placeholder="رمز مدیر" />
+  <button onclick="loginAdmin()">ورود</button>
+  <p id="loginMsg" style="color:red;"></p>
+</div>
+
+<div id="adminPanel" style="display:none; padding:20px;">
+  <h2>🎯 پنل مدیریت</h2>
+  <!-- بقیه امکانات اینجاست -->
+</div>
+
+<script>
+  function loginAdmin() {
+    const pass = document.getElementById("adminPass").value;
+    if (pass === "codccadmin") {
+      document.getElementById("adminLogin").style.display = "none";
+      document.getElementById("adminPanel").style.display = "block";
+    } else {
+      document.getElementById("loginMsg").innerText = "رمز اشتباهه!";
+    }
+  }
+</script>
+<div style="margin-top:20px;">
+  <h3>افزودن گان جدید</h3>
+  <input type="text" id="gunName" placeholder="نام گان" />
+  <textarea id="gunDesc" placeholder="توضیحات گان"></textarea>
+  <input type="file" id="gunImg" accept="image/*" />
+  <button onclick="addGun()">افزودن</button>
+</div>
+
+<div id="gunList"></div>
+
+<script>
+  let guns = JSON.parse(localStorage.getItem('guns')) || [];
+
+  function saveGuns() {
+    localStorage.setItem('guns', JSON.stringify(guns));
+  }
+
+  function addGun() {
+    const name = document.getElementById("gunName").value.trim();
+    const desc = document.getElementById("gunDesc").value.trim();
+    const img = document.getElementById("gunImg").files[0];
+
+    if (!name || !desc || !img) return alert("همه فیلدها الزامی هستند!");
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      guns.push({
+        id: Date.now(),
+        name,
+        desc,
+        image: e.target.result
+      });
+      saveGuns();
+      renderGunList();
+      alert("گان اضافه شد!");
+    };
+    reader.readAsDataURL(img);
+  }
+
+  function renderGunList() {
+    const container = document.getElementById("gunList");
+    container.innerHTML = "<h3>لیست گان‌ها</h3>";
+    guns.forEach(gun => {
+      const div = document.createElement("div");
+      div.style.border = "1px solid #ccc";
+      div.style.padding = "10px";
+      div.style.marginTop = "10px";
+
+      div.innerHTML = `
+        <img src="${gun.image}" width="100" />
+        <h4>${gun.name}</h4>
+        <p>${gun.desc}</p>
+        <button onclick="deleteGun(${gun.id})">❌ حذف</button>
+      `;
+
+      container.appendChild(div);
+    });
+  }
+
+  function deleteGun(id) {
+    if (confirm("مطمئنی حذف کنم؟")) {
+      guns = guns.filter(g => g.id !== id);
+      saveGuns();
+      renderGunList();
+    }
+  }
+
+  renderGunList();
+</script>
+// داخل حلقه رندر کامنت‌ها
+const deleteBtn = document.createElement('button');
+deleteBtn.textContent = '🗑️ حذف نظر';
+deleteBtn.onclick = () => {
+  comments = comments.filter(c => c.id !== comment.id && c.parentId !== comment.id);
+  saveComments();
+  renderComments();
+};
+li.appendChild(deleteBtn);
+<head>
+  <title>بهترین اتچمنت های کالاف دیوتی موبایل | COD Guns</title>
+  <meta name="description" content="سایتی کامل با دسته‌بندی گان‌های کالاف دیوتی موبایل، اتچمنت‌ها، تصاویر، نظرات کاربران و لایک دیسلایک. حرفه‌ای‌ترین راهنمای Gunsmith فارسی.">
+  <meta name="keywords" content="اتچمنت کالاف دیوتی موبایل, gunsmith codm, guns call of duty mobile, بهترین گان کالاف, cod guns, attachments cod mobile">
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<img src="ak47.png" alt="AK-47 بهترین اسلحه کالاف دیوتی موبایل" />
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://yourdomain.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/ak47.html</loc>
+    <priority>0.8</priority>
+  </url>
+</urlset>
+User-agent: *
+Allow: /
+Sitemap: https://yoursite.com/sitemap.xml
+User-agent: *
+Allow: /
+Sitemap: https://yoursite.com/sitemap.xml
+User-agent: *
+Allow: /
+Sitemap: https://yourdomain.com/sitemap.xml
+<!-- اضافه کن به پایین body سایت -->
+<div id="chat-widget">
+  <div id="chat-header" onclick="toggleChat()">چت با ما 💬</div>
+  <div id="chat-body" style="display:none;">
+    <div id="chat-messages"></div>
+    <input type="text" id="chat-input" placeholder="پیام خود را بنویسید..." onkeypress="handleKey(event)" />
+  </div>
+</div>
+
+<style>
+#chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+  z-index: 1000;
+}
+#chat-header {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+}
+#chat-body {
+  border: 1px solid #007bff;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+#chat-messages {
+  padding: 10px;
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 200px;
+  font-size: 14px;
+  background: #f1f1f1;
+}
+#chat-input {
+  border: none;
+  border-top: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+  outline: none;
+}
+.message {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  max-width: 80%;
+  clear: both;
+}
+.message.user {
+  background: #007bff;
+  color: white;
+  float: right;
+}
+.message.admin {
+  background: #e5e5ea;
+  color: black;
+  float: left;
+}
+</style>
+
+<script>
+function toggleChat() {
+  const body = document.getElementById('chat-body');
+  if (body.style.display === 'none') {
+    body.style.display = 'flex';
+  } else {
+    body.style.display = 'none';
+  }
+}
+
+function handleKey(event) {
+  if(event.key === 'Enter'){
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if(msg === '') return;
+
+    addMessage('user', msg);
+    input.value = '';
+
+    // پاسخ ساده خودکار مدیر:
+    setTimeout(() => {
+      addMessage('admin', 'پیام شما دریافت شد! به زودی پاسخ می‌دهیم 😊');
+    }, 1000);
+  }
+}
+
+function addMessage(sender, text) {
+  const chatMessages = document.getElementById('chat-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.classList.add('message', sender);
+  msgDiv.textContent = text;
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+</script>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>AK-47</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <h1>AK-47</h1>
+  <p>تعداد بازدید: <span id="view-count">0</span></p>
+
+  <!-- بقیه محتوا مثل عکس و اتچمنت‌ها -->
+
+  <script>
+    const gunKey = 'views-ak47'; // کلید برای این گان خاص
+
+    // گرفتن تعداد فعلی
+    let views = localStorage.getItem(gunKey);
+
+    if (!views) {
+      views = 1;
+    } else {
+      views = parseInt(views) + 1;
+    }
+
+    localStorage.setItem(gunKey, views);
+
+    document.getElementById('view-count').textContent = views;
+  </script>
+</body>
+</html>
+<div class="gun-card" data-gun="ak47">
+  <img src="images/ak47.jpg" alt="AK-47" />
+  <h3>AK-47</h3>
+  <button onclick="toggleFavorite('ak47')" class="fav-btn">❤️</button>
+</div>
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: gray;
+}
+
+.fav-btn.favorited {
+  color: red;
+}
+<script>
+  const favorites = JSON.parse(localStorage.getItem('favGuns')) || [];
+
+  function toggleFavorite(gun) {
+    let index = favorites.indexOf(gun);
+    if (index > -1) {
+      favorites.splice(index, 1);
+    } else {
+      favorites.push(gun);
+    }
+
+    localStorage.setItem('favGuns', JSON.stringify(favorites));
+    updateFavUI();
+  }
+
+  function updateFavUI() {
+    document.querySelectorAll('.gun-card').forEach(card => {
+      const gun = card.getAttribute('data-gun');
+      const btn = card.querySelector('.fav-btn');
+      if (favorites.includes(gun)) {
+        btn.classList.add('favorited');
+      } else {
+        btn.classList.remove('favorited');
+      }
+    });
+  }
+
+  updateFavUI();
+</script>
+<button onclick="showLogin()">🔒 ورود ادمین</button>
+
+<div id="admin-login" style="display: none; margin-top: 1rem;">
+  <input type="password" id="admin-pass" placeholder="رمز عبور" />
+  <button onclick="checkPass()">ورود</button>
+</div>
+
+<div id="upload-form" style="display: none; margin-top: 2rem;">
+  <h2>افزودن گان جدید</h2>
+  <input type="text" id="gun-name" placeholder="نام گان"><br><br>
+  <input type="text" id="gun-img" placeholder="لینک عکس گان"><br><br>
+  <textarea id="gun-desc" placeholder="توضیح گان" rows="5"></textarea><br><br>
+  <button onclick="uploadGun()">آپلود</button>
+</div>
+<script>
+  function showLogin() {
+    document.getElementById("admin-login").style.display = "block";
+  }
+
+  function checkPass() {
+    const pass = document.getElementById("admin-pass").value;
+    if (pass === "codcc") {
+      document.getElementById("upload-form").style.display = "block";
+      document.getElementById("admin-login").style.display = "none";
+    } else {
+      alert("رمز اشتباهه!");
+    }
+  }
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+  import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "🔑 کد خودت",
+    authDomain: "PROJECT-ID.firebaseapp.com",
+    databaseURL: "https://PROJECT-ID.firebaseio.com",
+    projectId: "PROJECT-ID",
+    storageBucket: "PROJECT-ID.appspot.com",
+    messagingSenderId: "XXXXX",
+    appId: "XXXXXX"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  window.uploadGun = function () {
+    const name = document.getElementById("gun-name").value;
+    const img = document.getElementById("gun-img").value;
+    const desc = document.getElementById("gun-desc").value;
+
+    if (!name || !img) {
+      alert("نام و عکس اجباری هستند!");
+      return;
+    }
+
+    const gunRef = ref(db, "guns/");
+    const newGunRef = push(gunRef);
+
+    set(newGunRef, {
+      name: name,
+      image: img,
+      description: desc,
+      views: 0,
+      likes: 0
+    }).then(() => {
+      alert("گان جدید با موفقیت اضافه شد!");
+      // ریست فرم
+      document.getElementById("gun-name").value = "";
+      document.getElementById("gun-img").value = "";
+      document.getElementById("gun-desc").value = "";
+    });
+  };
+</script>
+<div id="gun-list"></div>
+
+<script type="module">
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+  const db = getDatabase();
+
+  const gunListRef = ref(db, "guns/");
+  onValue(gunListRef, (snapshot) => {
+    const container = document.getElementById("gun-list");
+    container.innerHTML = "";
+
+    snapshot.forEach((child) => {
+      const gun = child.val();
+      container.innerHTML += `
+        <div class="gun-card">
+          <img src="${gun.image}" width="200" />
+          <h3>${gun.name}</h3>
+          <p>${gun.description || ''}</p>
+        </div>
+      `;
+    });
+  });
+</script>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CODLoadout.ir - سایت گان‌های کالاف دیوتی موبایل</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <h1>CODLoadout.ir</h1>
+  <input type="text" id="search" placeholder="جستجوی گان..." />
+</header>
+
+<main>
+  <section id="gun-categories">
+    <!-- دسته‌بندی‌ها اینجا ساخته میشن -->
+  </section>
+
+  <section id="gun-list">
+    <!-- لیست گان‌ها -->
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 CODLoadout.ir | ساخته شده توسط شما</p>
+</footer>
+
+<div id="admin-panel" style="display:none;">
+  <input type="password" id="admin-pass" placeholder="رمز عبور ادمین" />
+  <button onclick="checkAdminPass()">ورود ادمین</button>
+
+  <div id="upload-gun-form" style="display:none;">
+    <h2>افزودن گان جدید</h2>
+    <input type="text" id="gun-name" placeholder="نام گان" />
+    <input type="text" id="gun-img" placeholder="لینک عکس گان" />
+    <textarea id="gun-desc" placeholder="توضیح گان"></textarea>
+    <button onclick="uploadGun()">آپلود</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+body {
+  font-family: Tahoma, sans-serif;
+  background: #121212;
+  color: #eee;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
+header {
+  background: #1e1e1e;
+  padding: 1rem;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+input#search {
+  width: 90%;
+  padding: 0.7rem;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: none;
+  margin-top: 0.7rem;
+}
+#gun-categories {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+.category-btn {
+  background: #2c2c2c;
+  border-radius: 15px;
+  padding: 0.7rem 1.3rem;
+  cursor: pointer;
+  transition: 0.3s;
+  user-select: none;
+}
+.category-btn:hover {
+  background: #ff3c3c;
+  color: white;
+}
+#gun-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+}
+.gun-card {
+  background: #222;
+  border-radius: 15px;
+  width: 220px;
+  padding: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff3c3c;
+  transition: transform 0.3s;
+}
+.gun-card:hover {
+  transform: scale(1.05);
+}
+.gun-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #1e1e1e;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #777;
+}
+#admin-panel {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: #222;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ff3c3c;
+  width: 300px;
+}
+#upload-gun-form input, #upload-gun-form textarea {
+  width: 100%;
+  margin: 0.3rem 0;
+  padding: 0.6rem;
+  border-radius: 7px;
+  border: none;
+  font-size: 1rem;
+}
+#upload-gun-form button {
+  background: #ff3c3c;
+  border: none;
+  color: white;
+  padding: 0.7rem;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+#upload-gun-form button:hover {
+  background: #ff1a1a;
+}
+// داده اولیه گان‌ها
+const guns = [
+  {
+    id: 1,
+    name: "AK-47",
+    category: "AR",
+    image: "https://i.imgur.com/1Mw3Yxg.png",
+    description: "اسلحه کلاسیک و پرقدرت.",
+    likes: 0,
+    dislikes: 0,
+    comments: []
+  },
+  {
+    id: 2,
+    name: "MP5",
+    category: "SMG",
+    image: "https://i.imgur.com/6YqkYHw.png",
+    description: "اسلحه مناسب برای نبردهای نزدیک.",
+    likes: 0,
+    dislikes: 0,
+    comments: []
+  },
+  {
+    id: 3,
+    name: "DL Q33",
+    category: "Sniper",
+    image: "https://i.imgur.com/g4d9gq7.png",
+    description: "اسنایپر قوی و دقیق.",
+    likes: 0,
+    dislikes: 0,
+    comments: []
+  },
+  // ... بیشتر اضافه کن
+];
+
+// دسته‌بندی‌ها
+const categories = ["AR", "SMG", "Sniper", "LMG", "Shotgun"];
+
+// نمایش دسته‌بندی‌ها
+const categoryContainer = document.getElementById("gun-categories");
+const gunListContainer = document.getElementById("gun-list");
+const searchInput = document.getElementById("search");
+
+let filteredCategory = null;
+
+// ساخت دکمه‌های دسته‌بندی
+categories.forEach(cat => {
+  const btn = document.createElement("button");
+  btn.className = "category-btn";
+  btn.textContent = cat;
+  btn.onclick = () => {
+    if (filteredCategory === cat) {
+      filteredCategory = null; // برداشتن فیلتر
+      btn.style.background = "#2c2c2c";
+      showGuns(guns);
+    } else {
+      filteredCategory = cat;
+      Array.from(categoryContainer.children).forEach(b => b.style.background = "#2c2c2c");
+      btn.style.background = "#ff3c3c";
+      showGuns(guns.filter(g => g.category === cat));
+    }
+  };
+  categoryContainer.appendChild(btn);
+});
+
+// نمایش گان‌ها
+function showGuns(list) {
+  gunListContainer.innerHTML = "";
+  list.forEach(gun => {
+    const card = document.createElement("div");
+    card.className = "gun-card";
+    card.innerHTML = `
+      <img src="${gun.image}" alt="${gun.name}" />
+      <h3>${gun.name}</h3>
+      <p>${gun.description}</p>
+      <div>
+        👍 <span id="like-${gun.id}">${gun.likes}</span> 
+        👎 <span id="dislike-${gun.id}">${gun.dislikes}</span>
+      </div>
+      <button onclick="showComments(${gun.id})">نظرات</button>
+    `;
+    gunListContainer.appendChild(card);
+  });
+}
+showGuns(guns);
+
+// جستجو
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.trim().toLowerCase();
+  let filtered = guns;
+  if (filteredCategory) {
+    filtered = guns.filter(g => g.category === filteredCategory);
+  }
+  if (query) {
+    filtered = filtered.filter(gun => gun.name.toLowerCase().includes(query));
+  }
+  showGuns(filtered);
+});
+
+// بخش نظرات ساده
+function showComments(gunId) {
+  const gun = guns.find(g => g.id === gunId);
+  if (!gun) return alert("گان پیدا نشد!");
+
+  let commentList = "نظرات:\n";
+  if (gun.comments.length === 0) {
+    commentList += "فعلاً نظری ثبت نشده.";
+  } else {
+    gun.comments.forEach((c, i) => {
+      commentList += `${i + 1}. ${c}\n`;
+    });
+  }
+
+  const newComment = prompt(commentList + "\n\nنظر خود را وارد کنید:");
+  if (newComment && newComment.trim()) {
+    gun.comments.push(newComment.trim());
+    alert("نظر شما ثبت شد!");
+  }
+}
+
+// ادمین و آپلود گان
+function checkAdminPass() {
+  const pass = document.getElementById("admin-pass").value;
+  if (pass === "codcc") {
+    document.getElementById("upload-gun-form").style.display = "block";
+  } else {
+    alert("رمز اشتباه است!");
+  }
+}
+
+function uploadGun() {
+  const name = document.getElementById("gun-name").value.trim();
+  const img = document.getElementById("gun-img").value.trim();
+  const desc = document.getElementById("gun-desc").value.trim();
+
+  if (!name || !img) {
+    alert("نام و عکس گان ضروری است!");
+    return;
+  }
+
+  const newGun = {
+    id: guns.length + 1,
+    name,
+    image: img,
+    category: "Unknown",
+    description: desc,
+    likes: 0,
+    dislikes: 0,
+    comments: []
+  };
+
+  guns.push(newGun);
+  showGuns(guns);
+
+  // فرم ریست شود
+  document.getElementById("gun-name").value = "";
+  document.getElementById("gun-img").value = "";
+  document.getElementById("gun-desc").value = "";
+
+  alert("گان جدید اضافه شد!");
+}
